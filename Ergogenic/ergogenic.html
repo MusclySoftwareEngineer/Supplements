@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sports Supplements Information</title>
+  <style>
+    body { position: relative; min-height: 1000px; margin: 0; }
+    .home-button { display: inline-block; }
+    .home-button:hover { background-color: aquamarine; }
+
+    /* Optional: make canvas fill the window. If you want fixed 700x700, remove this block and the JS resize code. */
+    html, body { height: 100%; }
+    #canvas { display: block; width: 100vw; height: 100vh; }
+
+    .Bam {padding: 30px; background-color: yellowgreen;
+     border: 3px solid #000;
+  border-radius: 12px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #000;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+
+  /* Interaction effects */
+  transition: transform 0.15s ease, 
+              filter 0.15s ease, 
+              background-color 0.15s ease;
+
+  /* Do not allow highlighting text while clicking */
+  user-select: none;
+}
+
+/* Hover state — looks interactive */
+.Bam:hover {
+  transform: scale(1.04);
+  filter: brightness(0.95);
+}
+
+/* Active state — looks physically pressed */
+.Bam:active {
+  transform: scale(0.98);
+  filter: brightness(0.9);
+}
+
+/* Keyboard navigation focus ring (optional but accessible) */
+.Bam:focus-visible {
+  outline: 4px solid #1e90ff;
+  outline-offset: 2px;
+}
+#sor3
+ {position: absolute; right: 200px; top: 30px;}
+  </style>
+</head>
+<body>
+<div id="supplement-button">
+  <div class="Bam" style="position: absolute; left: 150px; top: 750px; font-size: 30px;">BCAAs</div>
+  <div class="Bam" style="position: absolute; left: 420px; top: 750px; font-size: 30px;">Creatine</div>
+  <div class="Bam" style="position: absolute; left: 700px; top: 750px; font-size: 30px;">Glutamine</div>
+  <div class="Bam" style="position: absolute; left: 1000px; top: 750px; font-size: 30px;">Citrulline Malate</div>
+</div>
+  <button id="sor3" onclick="window.open('source3.html','_blank')">Source
+</button>
+
+
+
+
+
+
+  <canvas id="canvas" width="700" height="700"></canvas>
+
+  <h1 style="position: absolute; left: 50%; transform: translateX(-50%); top: 150px;
+             font-size: 60px; white-space: nowrap;">
+    Sports Supplements Comprehension
+  </h1>
+
+  <a href="/index.html">
+    <button class="home-button" style="position: absolute; top: 30px; right: 100px;">Home</button>
+  </a>
+  <script src="MYjs/gsap.min.js"></script>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    // ====== If you want the canvas to fill the page, keep this; otherwise remove these two lines ======
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resizeCanvas(); window.addEventListener("resize", resizeCanvas);
+    // ==================================================================================================
+
+    // time
+    
+    const EPS = 1.5;            // "near enough" to the startX to stop
+
+    // Optional rounded corner radius for the rectangles (increase to "increase radius" of corners)
+    const cornerR = 0; // try 20, 40, etc.
+
+    // Helper to draw rounded rectangles 
+    function fillRoundRect(x, y, w, h, r) {
+      if (!r) {
+        ctx.fillRect(x, y, w, h);
+        return;
+      }
+      const rr = Math.min(r, w / 2, h / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + rr, y);
+      ctx.arcTo(x + w, y, x + w, y + h, rr);
+      ctx.arcTo(x + w, y + h, x, y + h, rr);
+      ctx.arcTo(x, y + h, x, y, rr);
+      ctx.arcTo(x, y, x + w, y, rr);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // --- Boxes (center-based for easy rotation) ---
+    //  constant half-width (w/2) for edge collisions so they truly reach the canvas edge.
+    const boxes = [
+       
+      {
+        // Red box: original top-left was (10,10) with size 400x400 -> center at (210, 210)
+        x: 210, y: 210, w: 400, h: 400,
+        vx: 120, color: "rgb(255 0 0 / 50%)",
+        angle: 0, omega: Math.PI / 6,
+        startX: 210, lastX: 210,
+        state: "moving", pauseUntil: 0,
+        moveTime: 0, pauseArmed: false,
+        savedVx: 0, savedOmega: 0,
+        leftStart: false,
+        moveWindow: 15.0,   // seconds this box moves before next pause is armed
+        pauseMs: 3000,      // milliseconds this box pauses at startX
+
+      },
+      {
+        // Blue box: original top-left was (200,200) with size 400x400 -> center at (400, 400)
+        x: 400, y: 400, w: 400, h: 400,
+        vx: -160, color: "rgb(0 0 200 / 50%)",
+        angle: 0, omega: -Math.PI / 4,
+        startX: 400, lastX: 400,
+        state: "moving", pauseUntil: 0,
+        moveTime: 0, pauseArmed: false,
+        savedVx: 0, savedOmega: 0,
+        leftStart: false,
+        moveWindow: 15.,   // seconds this box moves before next pause is armed
+        pauseMs: 3500,      // milliseconds this box pauses at startX
+
+      }
+    ];
+
+    function crossedStart(b) {
+      return (b.lastX - b.startX) * (b.x - b.startX) <= 0 && Math.abs(b.x - b.lastX) > 0.001;
+    }
+
+    function maybeArmPause(b) {
+      if (!b.pauseArmed && b.moveTime >= b.moveWindow) {
+  b.pauseArmed = true;
+}
+
+    }
+
+    function maybeStartPauseAtStart(b, now) {
+      const near = Math.abs(b.x - b.startX) <= EPS;
+      if (b.pauseArmed && b.leftStart && (crossedStart(b) || near)) {
+        b.state = "pausing";
+        b.pauseUntil = now + b.pauseMs;
+
+
+        // Save current motion to resume later in the SAME direction
+        b.savedVx = b.vx;
+        b.savedOmega = b.omega;
+
+        // Freeze and snap to exact start position
+        b.vx = 0;
+        b.omega = 0;
+        b.x = b.startX;
+
+        // Reset cycle flags
+        b.moveTime = 0;
+        b.pauseArmed = false;
+        b.leftStart = false;
+      }
+    }
+
+    let lastTime = performance.now();
+
+    function update(dt, now) {
+      for (const b of boxes) {
+        if (b.state === "pausing") {
+          if (now >= b.pauseUntil) {
+            // Resume with same direction and spin
+            b.vx = b.savedVx || b.vx;
+            b.omega = b.savedOmega || b.omega;
+            b.state = "moving";
+            b.moveTime = 0;
+            b.lastX = b.x;
+          }
+          continue;
+        }
+
+        // MOVING
+        b.moveTime += dt;
+        maybeArmPause(b);
+
+        b.lastX = b.x;
+
+        // Integrate motion
+        b.x += b.vx * dt;
+        b.angle += b.omega * dt;
+
+        // Mark that we've left the start at least once in this cycle
+        if (!b.leftStart && Math.abs(b.x - b.startX) > EPS) b.leftStart = true;
+
+        // --- Edge collisions (constant half-width so boxes "reach the end") ---
+        const halfW = b.w / 2;
+        if (b.x - halfW < 0) { b.x = halfW; b.vx *= -1; }
+        else if (b.x + halfW > canvas.width) { b.x = canvas.width - halfW; b.vx *= -1; }
+
+        // If a pause is armed, stop the next time we return to startX
+        maybeStartPauseAtStart(b, now);
+      }
+    }
+
+    function drawBox(b) {
+      ctx.save();
+      ctx.translate(b.x, b.y);
+      ctx.rotate(b.angle);
+      ctx.fillStyle = b.color;
+      // draw from center
+      fillRoundRect(-b.w / 2, -b.h / 2, b.w, b.h, cornerR);
+      ctx.restore();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const b of boxes) drawBox(b);
+    }
+
+    function loop(now) {
+      const dt = Math.min((now - lastTime) / 1000, 0.05);
+      lastTime = now;
+      update(dt, now);
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) lastTime = performance.now();
+    });
+  </script>
+</body>
+</html>

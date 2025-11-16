@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+    <title>Vitamins Information</title>
+   <!--Buttons css-->
+   <style>
+       body {background-color: aliceblue;}
+
+     .VA-content {max-height: 0;    /*start hidden */ 
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease; 
+        position: absolute;
+        left: 80px;
+        top: 500px;
+        max-height: 0;   /* start hidden */
+        padding: 0 16px; }
+
+     .VA-sub { max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 16px;
+      position: absolute; left: 80px; top: 650px;
+       
+        }
+
+        .VA-content.show { max-height: 1000px; /*expand when active*/
+            padding: 12px 16px;
+        }
+
+        .VA-sub.show {
+  max-height: 1000px;
+  padding: 12px 16px;
+}
+
+        /* Style for active button */
+.VA.active {
+  background-color: rgb(148, 187, 85);
+  color: white;
+}
+
+.b-subrow {
+  display: flex;
+  gap: 100px;
+  margin-top: 12px;
+  
+}
+
+/* Temporarily disable animation when closing */
+.VA-content.no-transition,
+.VA-sub.no-transition {
+  transition: none !important;
+}
+
+ html, body { margin: 0; }
+body {
+  position: relative;      /* anchor for absolute children */
+  min-height: 1500px;      /* <-- adjust higher */
+}
+
+/* Prevent the browser's scroll anchoring from re-positioning the viewport */
+.VA-content,
+.VA-sub {
+  overflow-anchor: none;
+}
+
+   .home-button {display: inline-block;
+  }
+    .home-button:hover {background-color: aquamarine;}
+
+#sor1
+  {position: absolute; right: 200px; top: 30px;}
+   </style>
+
+</head>
+<body>
+    <!--vitamin info-->
+    <h1 style="position: absolute; top: 100px; left: 100px; font-size: 45px;">What is a vitamin?</h1>
+    <p style="position: absolute; top: 180px; left: 20px; font-size: 26px;">A vitamin is an organic compound (meaning it contains carbon) that the human body needs in tiny amounts to function properly.
+<br> Vitamins are called essential nutrients because most of them cannot be made by the human body (or can only be made in insufficient amounts) so we must obtain them from food or supplements.
+<br> <br> They are classified into 6 types: Vitamins A, B, C, D, E, K</p>
+       
+    <!--buttons-->
+    <!--Vitamin A-->
+    <button  type="button"  class="VA" style="position: absolute; left: 150px; top: 480px;">Vitamin A</button>
+    <div class="VA-content">
+         <p>Vitamin A is a fat-soluble vitamin essential for vision, immune defense, reproduction, and the maintenance of healthy skin and mucous membranes.<br>
+It is found in animal sources (liver, dairy, fish oils) as retinol, and in colorful fruits and vegetables (carrots, sweet potatoes, spinach) as provitamin A carotenoids,<br> which the body converts into active vitamin A.
+<br>Deficiency can cause night blindness, dry eyes, increased infection risk, and skin problems, while adequate intake supports normal vision, strong immunity, and healthy growth.</p>
+
+    <h2>Functions of Vitamin A</h2>
+    <h3>• Vision</h3><p>&rightarrow; It forms retinal, a component of rhodopsin, which is vital for low-light (night) vision</p>
+    <h3>• Immune function</h3><p>&rightarrow; It strengthens epithelial barriers and supports white blood cell activity</p><h3>• Growth and development</h3>
+    <p>&rightarrow; It's essential for normal cell growth and tissue repair</p><h3>• Skin and mucous membranes</h3><p>&rightarrow; It maintains healthy epithelial tissues (skin, respiratory, and digestive tracts)</p>
+    <h3>• Reproduction</h3><p>&rightarrow; It supports normal development of embryos and fertility</p><h3>• Antioxidant role (via carotenoids)</h3>
+    <p>&rightarrow; It helps protect cells from oxidative damage</p>
+    </div>
+    <!--Vitamin B-->
+    <button type="button" class="VA" style="position: absolute; left: 360px; top: 480px;">Vitamin B</button>
+    <div class="VA-content">
+       <p>Vitamin B is a group of 8 different vitamins called the B-complex vitamins. They are water-soluble because of this, humans need a regular dietary supply.
+        <br>These vitamins act montly as coenzymes (helpers for enzymes) playing a vital role in energy production, cell metabolism, nervous system health, red blood cell formation.
+          all water-soluble, all important for energy metabolism, nervous system, red blood cells, and growth.
+          They work together but each has a specific deficiency disease and unique role.       </p>
+    <!--Vitamin B sub buttons-->
+     <div class="b-subrow">
+    <button class="VA" data-target="#b1-panel">Vitamin B1</button>
+    <button class="VA" data-target="#b2-panel">Vitamin B2</button>
+    <button class="VA" data-target="#b3-panel">Vitamin B3</button>
+    <button class="VA" data-target="#b5-panel">Vitamin B5</button>
+    <button class="VA" data-target="#b6-panel">Vitamin B6</button>
+    <button class="VA" data-target="#b7-panel">Vitamin B7</button>
+    <button class="VA" data-target="#b9-panel">Vitamin B9</button>
+    <button class="VA" data-target="#b12-panel">Vitamin B12</button>
+
+     </div>
+       
+    
+      </div>
+    <!--vitamin B sub contents-->
+    <div id="b1-panel" class="VA-sub">
+        <h2>Functions of Vitamin B1</h2><h3>• B1 - Thiamine</h3><p>&rightarrow; It helps convert carbohydrates into energy 
+          (ATP production)<br>&rightarrow; It supports nerve function and muscle contraction
+          <br>&rightarrow; Deficiency could cause weakness, nerve problems, heart failure</p>
+      
+    </div>
+
+    <div id="b2-panel" class="VA-sub">
+      <h2>Functions of Vitamin B2</h2> <h3>• B2 - Riboflavin</h3>
+      <p>&rightarrow; It's involved in energy metabolism (FAD, FMN coenzymes)<br>
+      &rightarrow; It maintains healthy skin, eyes, and nervous system<br>
+    &rightarrow; Deficiency → cracks at mouth corners, sore throat, skin disorders</p>
+      </div>
+    
+    <div id="b3-panel" class="VA-sub">
+      <h2>Functions of Vitamin B3</h2> <h3>• B3 -Niacin</h3>
+      <p>&rightarrow; It supports energy production (NAD, NADP coenzymes)<br>
+      &rightarrow; Important for DNA repair and skin health<br>&rightarrow; Deficiency → pellagra (dermatitis, diarrhea, dementia)</p>
+</div>
+
+    <div id="b5-panel" class="VA-sub">
+      <H2>Functions of Vitamin B5</H2><h3>• B5 - Pantothenic Acid</h3>
+      <p>&rightarrow; Component of coenzyme A, crucial for fatty acid metabolism<br>
+      &rightarrow; It supports hormone and neurotransmitter synthesis<br>
+    &rightarrow; Deficiency is rare but can cause fatigue and numbness</p>
+</div>
+
+   <div id="b6-panel" class="VA-sub">
+     <h2>Functions of Vitamin B6</h2><h3>• B6 - Pyridoxine</h3>
+     <P>&rightarrow; Cofactor in amino acid metabolism and neurotransmitter synthesis (serotonin, dopamine, GABA)<br>
+    &rightarrow; It helps make hemoglobin<br>&rightarrow; Deficiency → anemia, irritability, depression, confusion</P>
+</div>
+
+   <div id="b7-panel" class="VA-sub">
+    <h2>Functions of Vitamin B7</h2><h3>• B7 - Biotin</h3>
+    <p>&rightarrow; It's nvolved in metabolism of fats, proteins, and carbohydrates<br>
+    &rightarrow; Important for healthy hair, skin, and nails<br>&rightarrow; Deficiency is rare but can cause skin rashes, hair loss, brittle nails</p>
+   </div>
+
+   <div id="b9-panel" class="VA-sub">
+    <h2>Functions of Vitamin B9</h2><h3>• B9 - Folate</h3>
+    <p>&rightarrow; Crucial for DNA synthesis and cell division<br>&rightarrow; Essential in pregnancy to prevent neural tube defects in babies
+    <br>&rightarrow; Deficiency → megaloblastic anemia, fatigue, poor growth</p>
+   </div>
+
+   <div id="b12-panel" class="VA-sub">
+    <h2>Functions of Vitamin B12</h2><h3>• B12 - Cobalamin</h3>
+    <p>&rightarrow; Required for red blood cell formation and DNA synthesis<br>&rightarrow; It maintains myelin (protective covering of nerves)
+    <br>&rightarrow; Deficiency → pernicious anemia, numbness, memory problems, neurological damage</p>
+   </div>
+
+    <!--Vitamin C-->
+    <button type="button" class="VA" style="position: absolute; left: 570px; top: 480px;">Vitamin C</button>
+    <div class="VA-content">
+      <p>Vitamin C is a water-soluble vitamin essential for collagen synthesis, immune function, antioxidant protection, and iron absorption.
+<br>Found in many fruits and vegetables (especially citrus and peppers).
+Deficiency causes scurvy, while adequate intake promotes strong immunity, healthy skin, gums, and connective tissue.
+<br>Protects cells, proteins, lipids, and DNA from oxidative damage. </p>
+<h2>Functions of Vitamin C</h2><h3>• Collagen Synthesis</h3><p>&rightarrow; Vitamin C is required for the enzymes that make collagen (the main structural protein in skin, tendons, ligaments, cartilage, and bone)<br>
+  &rightarrow; Without it, connective tissues become weak → this is why scurvy (deficiency disease) causes bleeding gums, poor wound healing, and fragile blood vessels
+</p><h3>• Antioxidant Defense</h3><p>&rightarrow; Neutralizes free radicals (reactive oxygen species) that damage cells<br>&rightarrow; Helps regenerate vitamin E back into its active antioxidant form</p><h3>• Iron Absorption</h3><p>&rightarrow; Increases absorption of non-heme iron (the type found in plants) by reducing ferric iron (Fe³⁺) to ferrous iron (Fe²⁺), which is more easily absorbed</p>
+<h3>• Immune Function</h3><p>&rightarrow; Supports function of white blood cells<br>&rightarrow; Helps the body fight infections by enhancing cellular activities of the immune system<br>&rightarrow; Maintains skin integrity as a first barrier against pathogens</p><h3>• Neurotransmitter Synthesis</h3><p>&rightarrow; Acts as a cofactor in making neurotransmitters such as norepinephrine and serotonin, which are important for mood, alertness, and stress response</p>
+<h3>• Wound Healing</h3><p>&rightarrow; Because of its role in collagen production, vitamin C is essential for repairing tissues after injury or surgery</p>
+
+
+    </div>
+
+     <!--Vitamin D-->
+     <button type="button" class="VA" style="position: absolute; left: 780px; top: 480px;">Vitamin D</button>
+     <div class="VA-content">
+     <P>Vitamin D is a fat-soluble vitamin. Unlike most vitamins, it acts more like a hormone in the body.</P>
+     <h2>Functions of Vitamin D</h2> <h3>• Calcium and Phosphorus Homeostasis</h3>
+     <p>&rightarrow; Increases intestinal absorption of calcium and phosphorus<br>&rightarrow; Promotes bone mineralization.<br>&rightarrow; Works with parathyroid hormone (PTH) to regulate blood calcium</p>
+     <h3>• Bone Health</h3> <p>&rightarrow; Prevents rickets in children (soft, weak bones)<br>&rightarrow; Prevents osteomalacia in adults (poor bone mineralization)<br>&rightarrow; Helps reduce risk of osteoporosis when combined with calcium</p>
+     <h3>• Muscle Function</h3> <p>&rightarrow; Improves muscle strength and reduces risk of falls in older adults</p><h3>• Immune System</h3><p>&rightarrow; Modulates both innate and adaptive immunity<br>&rightarrow; May reduce susceptibility to infections (e.g., respiratory infections)</p>
+     <h3>• Other Potential Roles (still being studied)</h3><p>&rightarrow; Regulation of cell growth and differentiation<br>&rightarrow; Possible influence on mood (linked to seasonal affective disorder)<br>&rightarrow; Associations with reduced risk of certain chronic diseases (autoimmune diseases, cardiovascular disease, type 2 diabetes, some cancers), though evidence is mixed
+     </p>
+     </div>
+
+     <!--Vitamin E-->
+     <button type="button"  class="VA" style="position: absolute; left: 990px; top: 480px;">Vitamin E</button>
+     <div class="VA-content">
+     <P>Vitamin E is a fat-soluble vitamin that works mainly as an antioxidant, protecting cells and tissues from damage caused by free radicals.
+<br>It is found in nuts, seeds, vegetable oils, and leafy greens.
+Deficiency is rare but can cause muscle weakness, vision problems, and impaired immunity, while adequate intake supports skin health, eye function, immune defense.</P>
+<h2>Functions of Vitamin E</h2><h3>• Antioxidant protection</h3><p>&rightarrow; It shields cell membranes and lipids from oxidative stress</p><h3>• Immune support</h3><p>&rightarrow; It helps white blood cells function effectively</p>
+<h3>• Skin and eye health</h3><p>&rightarrow; It maintains integrity of skin and protects eye tissues</p><h3>• Cardiovascular health</h3><p>&rightarrow; It prevents oxidation of LDL cholesterol, which may lower risk of atherosclerosis</p>
+<h3>• Cell signaling</h3><p>&rightarrow; It's involved in communication between cells</p>
+     </div>
+     
+     
+     <!--Vitamin K-->
+     <button type="button" class="VA" style="position: absolute; left: 1200px; top: 480px;">Vitamin K</button>
+     <div class="VA-content">
+     <P>Vitamin K is a fat-soluble vitamin essential for normal blood clotting and bone health.
+It is found in green leafy vegetables (like kale, spinach, and broccoli), <br>as well as in vegetable oils and produced in small amounts by gut bacteria.
+Deficiency can lead to easy bruising, excessive bleeding, and weak bones,<br> while adequate intake supports proper clotting and strong skeletal health.</P>
+<H2>Functions of Vitamin K</H2><h3>• Blood clotting</h3><p>&rightarrow; It activates clotting factors that stop bleeding after injury</p>
+<h3>• Bone metabolism</h3><p>&rightarrow; It helps bind calcium to bone proteins, supporting bone strength</p><h3>• Cardiovascular health</h3>
+<p>&rightarrow; It may prevent calcium buildup in blood vessels (reduces risk of vascular calcification)</p><h3>• Cell growth regulation</h3>
+<p>&rightarrow; It plays a role in regulating cell function and growth</p>
+
+
+
+
+
+
+     </div>
+
+     <a href="/index.html" >
+      <button class="home-button" style="position: absolute; top: 30px; right: 100px;">Home</button>
+
+     </a>
+
+<button id="sor1" onclick="window.open('source1.html','_blank')">Source
+</button>
+     
+
+
+
+
+    <script>
+  
+    // Helper: close a panel instantly (no animation)
+  function closePanelInstant(panel) {
+    if (!panel) return;
+    panel.classList.add('no-transition'); // disable transition
+    panel.classList.remove('show');       // hide immediately
+    // Force reflow so the browser applies the change right now
+    // (reading offsetHeight triggers layout)
+    void panel.offsetHeight;
+    panel.classList.remove('no-transition'); // restore transitions for future opens
+  }
+
+  // ===== 1) TOP-LEVEL (A, B, C, D, E, K): only one open at a time =====
+  document.querySelectorAll('.VA').forEach(btn => {
+    const section = btn.nextElementSibling; // should be the .VA-content paired with this button
+    if (!(section && section.classList.contains('VA-content'))) return;
+
+    btn.addEventListener('click', () => {
+      const isOpening = !section.classList.contains('show');
+
+      // Close all other top-level sections and reset their buttons + sub-panels
+      document.querySelectorAll('.VA-content.show').forEach(other => {
+        if (other === section) return;
+        closePanelInstant(other);
+        const otherBtn = other.previousElementSibling;
+        if (otherBtn && otherBtn.classList.contains('VA')) {
+          otherBtn.classList.remove('active');
+        }
+        // also close any sub-panels opened under that section
+        other.querySelectorAll('.VA[data-target]').forEach(subBtn => {
+          const selector = subBtn.getAttribute('data-target');
+          const panel = selector ? document.querySelector(selector) : null;
+          if (panel) closePanelInstant(panel);
+          subBtn.classList.remove('active');
+        });
+      });
+
+      // Toggle the clicked section
+      if (isOpening) {
+        section.classList.add('show');   // opens with your smooth transition
+        btn.classList.add('active');
+      } else {
+        closePanelInstant(section);      // closes instantly
+        btn.classList.remove('active');
+      }
+    });
+  });
+
+  // ===== 2) SUB-LEVEL (B1..B12): only one open at a time =====
+  document.querySelectorAll('.VA[data-target]').forEach(btn => {
+    const selector = btn.getAttribute('data-target');
+    const panel = selector ? document.querySelector(selector) : null;
+    if (!panel) return;
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation(); // don't trigger top-level handler
+      const isOpening = !panel.classList.contains('show');
+
+      // Close all other sub-panels and deactivate their buttons (instantly)
+      document.querySelectorAll('.VA-sub.show').forEach(other => {
+        if (other !== panel) closePanelInstant(other);
+      });
+      document.querySelectorAll('.VA[data-target].active').forEach(otherBtn => {
+        if (otherBtn !== btn) otherBtn.classList.remove('active');
+      });
+
+      // Toggle the clicked sub-panel
+      if (isOpening) {
+        panel.classList.add('show');   // smooth open
+        btn.classList.add('active');
+      } else {
+        closePanelInstant(panel);      // instant close
+        btn.classList.remove('active');
+      }
+    });
+  });
+
+  
+</script>
+</body>
+
+
+</html>

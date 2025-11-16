@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+  <meta charset="UTF-8">
+  <title>Minerals Information</title>  
+  <style>
+    html body { margin: 0; height: 100%;}
+    body {background-color: lightgray;
+    position: relative; min-height: 1800px;}
+
+    .home-button {display: inline-block;
+  }
+    .home-button:hover {background-color: aquamarine;}
+    
+    #canvas {
+  position: absolute;    /* relative to body/page */
+  left: 0;
+  right: 0;
+  bottom: 0;             /* stick to page bottom */
+  height: 2000px;         /* the playground height */
+  width: 100%;
+  background: transparent;
+  border: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+#sor2
+  {position: absolute; right: 200px; top: 30px;}
+ 
+  </style>
+
+</head>
+
+<body>
+   <canvas id="canvas" width="600" height="300"></canvas>
+
+    <h1 style="position: absolute; top: 15px;">What is a Mineral?</h1>
+    <p style="position: absolute; left: 20px; top: 70px; font-size: 17px;">Minerals are inorganic nutrients (they don't contain carbon, unlike vitamins) that the body needs in small amounts for various essential functions.<br>
+    They come from the earth and water and enter the food chain through plants and animals.<br>
+    Minerals cannot be made by the human body, so they must be obtained from diet.<br>
+    They are involved in building body structures (like bones and teeth), regulating processes (like nerve signaling, muscle contraction, fluid balance),
+    and acting as cofactors for enzymes in metabolism.
+    </p>
+    
+    <hr style="border: 2px solid black; width: 100%; position: absolute; top: 185px; left: 0;">
+
+    <h2 style="position: absolute; top: 200px; left: 20px;">Types of Major minerals</h2>
+    <p style="position: absolute; top: 280px; left: 30px;">1. Calcium (Ca)<br><br>&rightarrow; bones, teeth, muscle contraction, blood clotting.
+    <br><br>2. Phosphorus (P)<br><br>&rightarrow; bones, energy metabolism (ATP), DNA<br><br>3. Magnesium (Mg)<br><br>&rightarrow;
+   enzyme cofactor, nerve & muscle function<br><br>4. Sodium (Na)<br><br>&rightarrow; fluid balance, nerve impulses, muscle contraction<br><br>
+  5. Potassium (K)<br><br>&rightarrow; heart rhythm, fluid balance, nerve signals<br><br>6. Chloride (Cl)<br><br>&rightarrow;
+ part of stomach acid (HCl), fluid balance<br><br>7. Sulfur (S)<br><br>&rightarrow; found in amino acids (methionine, cysteine), important for proteins
+   </p>
+
+   <hr style="border: 2px solid black; width: 100%; position: absolute; top: 800px; left: 0;">
+
+   <h2 style="position: absolute; top: 830px; left: 20px;">Types of Microminerals</h2>
+   <p style="position: absolute; top: 910px; left: 30px;">1. Iron (Fe)<br><br>&rightarrow; hemoglobin in red blood cells, oxygen transport<br><br>
+  2. Zinc (Zn)<br><br>&rightarrow; immune function, wound healing, enzyme activity<br><br>3. Copper (Cu)<br><br>&rightarrow; 
+works with iron in red blood cell formation, connective tissue<br><br>4. Manganese (Mn)<br><br>&rightarrow; enzyme cofactor, bone development
+<br><br>5. Iodine (I)<br><br>&rightarrow;thyroid hormone production<br><br>6. Selenium (Se)<br><br>&rightarrow; antioxidant defense, thyroid function
+<br><br>7. Fluoride (F)<br><br>&rightarrow; strengthens teeth, prevents dental cavities<br><br>
+8. Chromium (Cr)<br><br>&rightarrow; helps regulate blood sugar by aiding insulin action<br><br>
+9.Molybdenum (Mo)<br><br>&rightarrow;cofactor for enzymes that break down amino acids and drugs</p>
+
+
+<a href="/index.html" >
+      <button class="home-button" style="position: absolute; top: 30px; right: 100px;">Home</button>
+
+     </a>
+<button id="sor2" onclick="window.open('source2.html','_blank')">Source
+</button>
+
+<script>
+ const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+let W = 0, H = 0, DPR = Math.max(1, window.devicePixelRatio || 1);
+function resizeToElement() {
+  // Match the canvas to its rendered CSS size at the page bottom
+  const rect = canvas.getBoundingClientRect();
+  // rect gives viewport coords; width/height are the CSS pixels of the element
+  W = Math.max(1, Math.round(rect.width));
+  H = Math.max(1, Math.round(rect.height));
+
+  canvas.width  = Math.floor(W * DPR);
+  canvas.height = Math.floor(H * DPR);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0); // 1 unit = 1 CSS px
+}
+window.addEventListener('resize', resizeToElement);
+resizeToElement();
+
+const ball = {
+  x: W * 0.5,
+  y: H - 200,     // start on floor
+  vx: 6.0,       // horizontal wander speed
+  vy: 5,       // give it an initial upward kick so it starts bouncing
+  radius: 30,
+  color: '#111',
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+};
+
+const gravity = 0.3;      // downwards pull
+const bounce  = 1.0;     // energy kept on bounce (near 1 = keeps bouncing)
+
+const wallBounce = 1.0;  // side walls
+const floorFriction = 1.; // tiny horizontal loss at floor contact
+
+let last = performance.now();
+function tick(now = performance.now()) {
+  const dt = Math.min(33, now - last) / 16.6667; // ~60fps units
+  last = now;
+
+  ctx.clearRect(0, 0, W, H);
+
+  // integrate
+  ball.vy += gravity * dt;
+  ball.x  += ball.vx * dt;
+  ball.y  += ball.vy * dt;
+
+  // floor
+  // floor (perfect, constant-speed bounce)
+if (ball.y + ball.radius > H) {
+  ball.y = H - ball.radius;
+  const REBOUND = 10;   // <-- set exact upward speed here
+  ball.vy = -REBOUND;   // same speed every bounce
+  // do NOT touch ball.vx here (no floor friction)
+}
+  // ceiling (rare in a shallow strip, but safe)
+  if (ball.y - ball.radius < 0) {
+    ball.y = ball.radius;
+    ball.vy = -ball.vy * bounce;
+  }
+
+  // walls
+  if (ball.x + ball.radius > W) {
+    ball.x = W - ball.radius;
+    ball.vx = -ball.vx * wallBounce;
+  }
+  if (ball.x - ball.radius < 0) {
+    ball.x = ball.radius;
+    ball.vx = -ball.vx * wallBounce;
+  }
+
+  // tiny random nudge so it looks natural (optional)
+  if (Math.random() < 0.01) ball.vx += (Math.random() - 0.5) * 0.3;
+
+  ball.draw();
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+</script>
+
+   
+
+
+
+</body>
+   
+</html>
