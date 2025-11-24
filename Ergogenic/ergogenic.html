@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Sports Supplements Information</title>
   <style>
-    body { position: relative; min-height: 1000px; margin: 0; }
+    body { position: relative; min-height: 1500px; margin: 0; }
     .home-button { display: inline-block; }
     .home-button:hover { background-color: aquamarine; }
 
@@ -50,15 +50,61 @@
 }
 #sor3
  {position: absolute; right: 200px; top: 30px;}
+
+ .content-box {
+  max-height: 0;
+  overflow: hidden;
+  background: #f9f9f9;
+  padding: 0 20px;
+  border-radius: 10px;
+  position: absolute;
+  top: 120px;
+  left: -50px;
+  width: 1200px;
+  
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.content-box.open {
+  max-height: 500px;
+  padding: 20px;
+}
+
+#supplement-button {
+  position: relative;}
+
   </style>
 </head>
 <body>
 <div id="supplement-button">
-  <div class="Bam" style="position: absolute; left: 150px; top: 750px; font-size: 30px;">BCAAs</div>
-  <div class="Bam" style="position: absolute; left: 420px; top: 750px; font-size: 30px;">Creatine</div>
-  <div class="Bam" style="position: absolute; left: 700px; top: 750px; font-size: 30px;">Glutamine</div>
-  <div class="Bam" style="position: absolute; left: 1000px; top: 750px; font-size: 30px;">Citrulline Malate</div>
-</div>
+   <!--BCAAs-->
+  <div class="section" style="position: absolute; left: 150px; top: 750px; font-size: 25px;">
+    <div class="Bam">BCAAs</div>
+    <div class="content-box"><p>BCAAs consist of only three amino acids<br><br>1. Leucine<br>2.Isoleucine<br>3.Valine<br>
+    These three form the entire group called Branched-Chain Amino Acids. They're grouped together because each one has a branched side-chain structure and because they’re all essential (your body cannot make them), and they’re mainly metabolized inside skeletal muscle instead of the liver, which is unusual compared to other amino acids.
+  </p></div>
+  </div>
+  <!--Creatine-->
+  <div class="section" style="position: absolute; left: 420px; top: 750px; font-size: 25px;"> 
+    <div class="Bam">Creatine</div>
+    <div class="content-box" style="left: -320px;"><p>Creatine is a compound made from the amino acids arginine, glycine, and methionine, and its main job is to increase phosphocreatine stores inside your muscles so you can regenerate ATP faster; this leads to stronger lifts, more reps, better power output, faster recovery between sets, and easier muscle growth, and it also supports the brain by improving its energy availability, which helps with mental clarity and reduces fatigue; most people simply take 3–5 grams per day (lighter athletes closer to 3 g, heavier athletes closer to 5 g), and it’s 
+      one of the safest and most effective supplements for strength, skeletal muscle performance, and cognitive function.</p></div>
+  </div>
+  <!--Glutamine-->
+  <div class="section" style="position: absolute; left: 700px; top: 750px; font-size: 25px;">
+    <div class="Bam">Glutamine</div>
+    <div class="content-box" style="left: -600px;"><p>Glutamine is an amino acid that your body uses for immune function, gut lining repair, nitrogen transport, and recovery.
+       It helps maintain the intestinal barrier, supports immune cells during stress or hard training, and serves as a fuel source for rapidly dividing cells, but for muscle growth it is not very effective because healthy muscle already has plenty of glutamine, so most athletes use it mainly for gut health and immune support rather than strength or hypertrophy. Typical doses range from 5–10 grams per day, usually around workouts or before sleep.</p></div>
+  </div>
+  <!--Citrulline Malate-->
+  <div class="section" style="position: absolute; left: 1000px; top: 750px; font-size: 25px;">
+    <div class="Bam">Citrulline Malate</div>
+    <div class="content-box" style="left: -900px;"><p> Citrulline Malate is a combination of the amino acid L-citrulline and malic acid, and its main job is to increase nitric oxide production by raising blood arginine levels, which improves blood flow, boosts muscle pumps, enhances nutrient delivery, and delays fatigue; it also assists in the removal of ammonia and lactic acid from working muscles, helping you maintain power during high-intensity sets, and malate supports the Krebs cycle for extra endurance energy, making it one of the best supplements for pump,
+       performance, and training volume. The standard effective dose is 6–8 grams about 45 minutes before training. </p></div>
+  </div>
+   
+  
+  <!--source-->
   <button id="sor3" onclick="window.open('source3.html','_blank')">Source
 </button>
 
@@ -246,6 +292,27 @@
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden) lastTime = performance.now();
     });
+    
+    // buttons
+    document.querySelectorAll('.Bam').forEach(btn => {
+  btn.addEventListener('click', () => {
+    
+    const currentContent = btn.nextElementSibling;
+
+    // Close other boxes
+    document.querySelectorAll('.content-box.open').forEach(box => {
+      if (box !== currentContent) {
+        box.classList.remove('open');
+      }
+    });
+
+    // Toggle only this one
+    currentContent.classList.toggle('open');
+  });
+});
+
+
+
   </script>
 </body>
 </html>
