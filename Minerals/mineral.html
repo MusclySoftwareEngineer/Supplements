@@ -4,9 +4,16 @@
   <meta charset="UTF-8">
   <title>Minerals Information</title>  
   <style>
-    html body { margin: 0; height: 100%;}
-    body {background-color: lightgray;
-    position: relative; min-height: 1800px;}
+   html, body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background-color: lightgray;
+  position: relative;
+  min-height: 1800px;
+}
 
     .home-button {display: inline-block;
   }
@@ -32,6 +39,14 @@
 </head>
 
 <body>
+  <!--Home button-->
+   <button class="home-button"
+        onclick="window.location.href='https://musclysoftwareengineer.github.io/Supplements/'"
+        style="position: absolute; top: 30px; right: 100px; z-index: 10;">
+  Home
+</button>
+
+
    <canvas id="canvas" width="600" height="300"></canvas>
 
     <h1 style="position: absolute; top: 15px;">What is a Mineral?</h1>
@@ -63,11 +78,8 @@ works with iron in red blood cell formation, connective tissue<br><br>4. Mangane
 8. Chromium (Cr)<br><br>&rightarrow; helps regulate blood sugar by aiding insulin action<br><br>
 9.Molybdenum (Mo)<br><br>&rightarrow;cofactor for enzymes that break down amino acids and drugs</p>
 
+    
 
-<a href="/index.html" >
-      <button class="home-button" style="position: absolute; top: 30px; right: 100px;">Home</button>
-
-     </a>
 <button id="sor2" onclick="window.open('source2.html','_blank')">Source
 </button>
 
