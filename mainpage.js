@@ -18,8 +18,5 @@ ctx.lineTo(860, -700);
 ctx.quadraticCurveTo(920, -970, 1040, -600);
 ctx.quadraticCurveTo(1050, -100, 1020, -60);
 ctx.lineTo(650, 80);
-
-  
-
-
+ctx.stroke();
 
