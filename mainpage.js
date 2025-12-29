@@ -22,5 +22,4 @@ ctx.lineTo(650, 80);
   
 
 
-ctx.stroke();
 
